@@ -1,0 +1,55 @@
+use my_first_db
+
+db.createCollection("students")
+
+db.students.insert(name: "Ghaith", home_state: "Nablus", luck_number:5, birthday:{month: 3, day: 22, year: 1993})
+
+db.students.insert(name: "Huthaifa", home_state: "Tulkarm", luck_number:7, birthday:{month: 5, day: 4, year: 1998})
+
+db.students.insert(name: "Sami", home_state: "Jenin", luck_number:13, birthday:{month: 5, day: 13, year: 1999})
+
+db.students.insert(name: "Abd", home_state: "Hebron", luck_number:140, birthday:{month: 6, day: 7, year: 2001})
+
+db.students.insert(name: "Sameer", home_state: "Jericho", luck_number:5, birthday:{month: 7, day: 31, year: 1995})
+
+db.students.find().pretty()
+
+db.students.find({home_state: "Tulkarm"})
+
+db.students.find({$or: [{home_state: "Califronia}, {home_state: "Washington"}]})
+
+db.students.find({month:{$gt: 3}}).pretty()
+
+db.students.find({month:{$gt: 10}}).pretty()
+
+db.students.find({$and: [{luck_number: {$gte: 1}}, {luck_number: {$lte: 9}}]}).pretty()
+
+db.students.updateMany({}, ($set: {interests: ['coding', 'brunch', 'Sleeping']}))
+
+db.students.update({name: "Frodo}, {$addToSet: {interests: "Football"}})
+
+db.students.update({name: "Hugh}, {$addToSet: {interests: "Reading"}})
+
+db.students.update({name: "Boyd}, {$addToSet: {interests: "Writing"}})
+
+db.students.update({name: "Ron}, {$addToSet: {interests: "Speaking"}})
+
+db.students.update({name: "Steve}, {$addToSet: {interests: "RaceDriving"}})
+
+db.students.update({name: "Boyd"}, {$addToSet: {interests: 'Travelling'}})
+
+db.students.update({name: "Steve"}, {$pull: {interests: 'Travelling'}})
+
+db.students.remove({home_state: 'California'})
+
+db.students.remove({name: 'Sameer'})
+
+db.students.remove({luck_number: 5}, true)
+
+db.students.updateMany({home_state: "Washington"}, {$inc: {number_of_belts: 1}})
+
+db.students.updateMany({}, {$rename: {'number_of_belts': 'belts_earned'}})
+
+db.students.updateMany({}, {$unset: {luck_number: ''}})
+
+db.students.updateMany({}, {$currentDate: {updated_on: true}})
