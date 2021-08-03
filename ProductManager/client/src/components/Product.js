@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const Product = () => {
 
-    //keep track of what is being typed via useState hook
+    
     const [title, setTitle] = useState("");
     const [error, setError] = useState("");
     const [titleError, setTitleError] = useState("");
@@ -14,29 +14,27 @@ const Product = () => {
     const [descriptionError, setDescriptionError] = useState("");
 
     const priceErrMesgs = {
-        empty: "price cannot be empty",
-        minPrice: "price cannot be less than 5"
+        empty: "shouldnt be empty",
+        minPrice: "price >5"
     };
 
     const titleErrMesgs = {
-        empty: "title cannot be empty",
-        minLength: "cannot be less than 3 char"
+        empty: "shouldnt be empty",
+        minLength: "length > 3"
     };
     const descErrMesgs = {
-        empty: "desc cannot be empty",
-        mindesc: "cannot be less than 3 char"
+        empty: "shouldnt be empty",
+        mindesc: "length > 3"
     };
 
     const submitErrMesgs = {
-        noSubmit: "Please fix the errors above before submitting the form"
+        noSubmit: "errors must be fixed"
     };
-    //handler when the form is submitted
+    
     const CreateProduct = e => {
-        //prevent default behavior of the submit
-        e.preventDefault();
+    e.preventDefault();
         if (titleChange(title) && priceChange(price) && descChange(description)) {
             const newProduct = { title: title, price: price, description: description };
-            //make a post request to create a new product
             axios.post('http://localhost:8000/api/people', {
                 title,
                 price,
@@ -53,20 +51,15 @@ const Product = () => {
         } else {
             setError(submitErrMesgs.noSubmit);
         }
-        // const newUser = { title, price, description };
-        // setTitle("");
-        // setPrice("");
-        // setDescription("");
-        // console.log("Welcome", newUser);
-        // setHasBeenSubmitted(true);
+        
 
     };
 
     const formMessage = () => {
         if (hasBeenSubmitted) {
-            return "Thank you !";
+            return "Thanks";
         } else {
-            return "Welcome, please add product";
+            return "Add product";
         }
     };
     const titleChange = (value) => {
@@ -108,15 +101,6 @@ const Product = () => {
             return true;
         }
     };
-    // const titleChange = (e) => {
-    //     if (e.target.value.length < 5 && e.target.value.length !== 0) {
-    //         setTitleError("Title should be more than 3 char");
-    //     }
-    //     else {
-    //         setTitleError("");
-    //     }
-    // }
-    //onChange to update title and price and description
     return (
 
         <div style={{ marginLeft: "666px" }}>
